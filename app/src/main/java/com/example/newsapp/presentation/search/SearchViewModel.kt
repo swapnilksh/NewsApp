@@ -50,11 +50,5 @@ class SearchViewModel @Inject constructor(
                 state.copy(articles = pagingDataFlow)
             }
         }.launchIn(viewModelScope)
-
-        var arr = arrayOf(1,2,3,4,5)
-        arr.reverse()
     }
-
-
-
 }
