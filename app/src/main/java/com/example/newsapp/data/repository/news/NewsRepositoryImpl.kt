@@ -1,6 +1,5 @@
 package com.example.newsapp.data.repository.news
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -25,7 +24,6 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
-        Log.d("SearchScreen", "in news repository query ${searchQuery}")
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {

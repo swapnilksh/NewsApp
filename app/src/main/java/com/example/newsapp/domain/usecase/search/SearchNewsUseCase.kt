@@ -11,7 +11,6 @@ class SearchNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) {
     operator fun invoke(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
-        Log.d("SearchScreen", "in usecase searchNewsUseCase() query ${searchQuery}")
         return newsRepository.searchNews(
             searchQuery = searchQuery,
             sources = sources

@@ -1,12 +1,12 @@
 package com.example.newsapp.presentation.search
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,9 +24,17 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.stateUiState.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.resetSearchState()
+    }
+
     Column(
         modifier = Modifier
-            .padding(top = Dimens.dimen24, start = Dimens.dimen24, end = Dimens.dimen24)
+            .padding(
+                top = Dimens.dimen24,
+                start = Dimens.dimen24,
+                end = Dimens.dimen24
+            )
             .statusBarsPadding()
     ) {
         SearchBar(
@@ -34,13 +42,11 @@ fun SearchScreen(
             readOnly = false,
             onValueChange = { viewModel.updateSearchQuery(it) },
             onSearch = {
-                Log.d("SearchScreen", "onSearchClicked ")
                 viewModel.searchNews()
             }
         )
         Spacer(modifier = Modifier.height(Dimens.dimen24))
         uiState.articles?.collectAsLazyPagingItems()?.let {
-            Log.d("SearchScreen", "articleList ${it} ")
             ArticleList(
                 articles = it,
                 onClick = navigateToDetail
